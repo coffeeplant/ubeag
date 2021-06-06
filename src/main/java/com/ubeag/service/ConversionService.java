@@ -37,14 +37,22 @@ public class ConversionService {
     }
 
     public long unShorten(String shortLink){
+        logger.info("inside unshorten");
+        logger.info("shortLink");
+        logger.info(shortLink);
         var chars = shortLink.toCharArray();
+        logger.info(String.valueOf(chars));
         int length = chars.length;
+        logger.info("length");
+        logger.info(String.valueOf(length));
 
         long decodedID =0;
 
         int counter = 1;
         for (int i = 0; i<length; i++){
             decodedID += allowString.indexOf(chars[i]) * Math.pow(lengthOfAllowed, length - counter);
+            logger.info("decodedID");
+            logger.info(String.valueOf(decodedID));
             counter++;
         }
         return decodedID;

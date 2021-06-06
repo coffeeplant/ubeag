@@ -26,7 +26,7 @@ public class LinkService {
         logger.info("create new link");
         link.setLongLink(request);
         logger.info("setlonglink");
-        var entity = linkRepository.save(link);
+        var entity = linkRepository.saveAndFlush(link);
         String test= conversionService.shorten(link.getId());
         logger.info("test:");
         logger.info(test);

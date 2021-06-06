@@ -17,10 +17,10 @@ public class Link {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Include
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false, name= "short_link")
     @EqualsAndHashCode.Include
     private String shortLink = "test";
-    @Column(nullable=false)
+    @Column(nullable = false, name= "long_link")
     @EqualsAndHashCode.Include
     private String longLink;
 

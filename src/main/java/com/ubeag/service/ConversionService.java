@@ -36,5 +36,18 @@ public class ConversionService {
         return shortenedString.reverse().toString();
     }
 
-    //method to search for short url
+    public long unShorten(String shortLink){
+        var chars = shortLink.toCharArray();
+        int length = chars.length;
+
+        long decodedID =0;
+
+        int counter = 1;
+        for (int i = 0; i<length; i++){
+            decodedID += allowString.indexOf(chars[i]) * Math.pow(lengthOfAllowed, length - counter);
+            counter++;
+        }
+        return decodedID;
+    }
+
 }

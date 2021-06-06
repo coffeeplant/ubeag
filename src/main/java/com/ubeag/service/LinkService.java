@@ -6,6 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
+
 @Service
 public class LinkService {
     private static Logger logger = LoggerFactory.getLogger(LinkService.class);
@@ -28,5 +31,13 @@ public class LinkService {
         logger.info("test:");
         logger.info(test);
         return test;
+    }
+
+    public String getLongLink(String shortLink){
+        var id = conversionService.unShorten(shortLink);
+        var link = linkRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Not Long Link matches" + shortLink));
+
+        return link.getLongLink();
     }
 }

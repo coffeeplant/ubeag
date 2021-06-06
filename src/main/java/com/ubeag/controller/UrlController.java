@@ -1,10 +1,11 @@
 package com.ubeag.controller;
 
 import com.ubeag.service.LinkService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/ubeag")
@@ -18,7 +19,16 @@ public class UrlController {
 
     @PostMapping("createshort")
     public String convertToShortLink(@RequestBody String request){
+        String shortLink = linkService.convertToShortLink(request);
+        return "ubeag/"+shortLink+"\n";
+    }
 
-        return linkService.convertToShortLink(request);
+    @GetMapping(value = "{shortLink)")
+    public ResponseEntity<Void> getandRedirect(@PathVariable String shortLink){
+        var link = linkService.getLongLink(shortLink);
+        return ResponseEntity.status(HttpStatus.FOUND)
+                .location(URI.create(link))
+                .build();
+
     }
 }

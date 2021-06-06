@@ -1,23 +1,36 @@
 package com.ubeag.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ConversionService {
 
+    private static Logger logger = LoggerFactory.getLogger(ConversionService.class);
     private static final String allowString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private char[] allowChars = allowString.toCharArray();
     private int lengthOfAllowed = allowChars.length;
 
-    public String shorten(long inputID){
+    public String shorten(Long inputID){
+        logger.info("inputID:");
+        logger.info(String.valueOf(inputID));
         var shortenedString = new StringBuilder();
-
+        logger.info("Entering shorten");
         if (inputID == 0){
+            logger.info("inside if:");
             return String.valueOf(allowChars[0]);
         }
         while (inputID > 0){
+            logger.info("inside while");
+            logger.info(("lengthofAllowed"));
+            logger.info(String.valueOf(lengthOfAllowed));
             shortenedString.append(allowChars[(int) (inputID % lengthOfAllowed)]);
+            logger.info("Shortened string");
+            logger.info(String.valueOf(shortenedString));
             inputID = inputID/ lengthOfAllowed;
+            logger.info("new input id");
+            logger.info(String.valueOf(inputID));
         }
 
         return shortenedString.reverse().toString();

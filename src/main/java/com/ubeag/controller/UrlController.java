@@ -16,8 +16,9 @@ public class UrlController {
         this.linkService = linkService;
     }
 
-    @PostMapping("createShortLink")
+    @PostMapping("createshort")
     public String convertToShortLink(@RequestBody String request){
+
         return linkService.convertToShortLink(request);
     }
 }

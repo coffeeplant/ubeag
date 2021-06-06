@@ -19,7 +19,7 @@ public class Link {
     private Long id;
     @Column(nullable = false)
     @EqualsAndHashCode.Include
-    private String shortLink;
+    private String shortLink = "test";
     @Column(nullable=false)
     @EqualsAndHashCode.Include
     private String longLink;

@@ -3,11 +3,11 @@ package com.ubeag.service;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Conversion {
+public class ConversionService {
 
     private static final String allowString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private char[] allowChars = allowString.toCharArray();
-    private int conv = allowChars.length;
+    private int lengthOfAllowed = allowChars.length;
 
     public String shorten(long inputID){
         var shortenedString = new StringBuilder();
@@ -16,8 +16,8 @@ public class Conversion {
             return String.valueOf(allowChars[0]);
         }
         while (inputID > 0){
-            shortenedString.append(allowChars[(int) (inputID % conv)]);
-            inputID = inputID/conv;
+            shortenedString.append(allowChars[(int) (inputID % lengthOfAllowed)]);
+            inputID = inputID/ lengthOfAllowed;
         }
 
         return shortenedString.reverse().toString();

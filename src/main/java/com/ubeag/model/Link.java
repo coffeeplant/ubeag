@@ -15,10 +15,13 @@ public class Link {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userID;
+    @EqualsAndHashCode.Include
+    private Long id;
     @Column(nullable = false)
+    @EqualsAndHashCode.Include
     private String shortLink;
     @Column(nullable=false)
+    @EqualsAndHashCode.Include
     private String longLink;
 
 }

@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.Optional;
 
 @Service
 public class LinkService {
@@ -21,18 +20,11 @@ public class LinkService {
     }
 
     public String convertToShortLink(String request){
-        logger.info("Entering convertToShortLink");
         var link = new Link();
-        logger.info("create new link");
         link.setLongLink(request);
-        logger.info("request");
-        logger.info(request);
-        logger.info("setlonglink");
-        var entity = linkRepository.saveAndFlush(link);
-        String test= conversionService.shorten(link.getId());
-        logger.info("test:");
-        logger.info(test);
-        return test;
+        var newRow = linkRepository.saveAndFlush(link);
+        String converted= conversionService.shorten(link.getId());
+        return converted;
     }
 
     public String getOriginalLink(String shortLink){
@@ -40,8 +32,6 @@ public class LinkService {
         var link = linkRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No Long Link matches" + shortLink));
 
-        logger.info("linl.getlonglink");
-        logger.info(link.getLongLink());
         return link.getLongLink();
     }
 }

@@ -13,46 +13,27 @@ public class ConversionService {
     private int lengthOfAllowed = allowChars.length;
 
     public String shorten(Long inputID){
-        logger.info("inputID:");
-        logger.info(String.valueOf(inputID));
         var shortenedString = new StringBuilder();
-        logger.info("Entering shorten");
         if (inputID == 0){
-            logger.info("inside if:");
             return String.valueOf(allowChars[0]);
         }
         while (inputID > 0){
-            logger.info("inside while");
-            logger.info(("lengthofAllowed"));
-            logger.info(String.valueOf(lengthOfAllowed));
             shortenedString.append(allowChars[(int) (inputID % lengthOfAllowed)]);
-            logger.info("Shortened string");
-            logger.info(String.valueOf(shortenedString));
             inputID = inputID/ lengthOfAllowed;
-            logger.info("new input id");
-            logger.info(String.valueOf(inputID));
         }
 
         return shortenedString.reverse().toString();
     }
 
     public long unShorten(String shortLink){
-        logger.info("inside unshorten");
-        logger.info("shortLink");
-        logger.info(shortLink);
         var chars = shortLink.toCharArray();
-        logger.info(String.valueOf(chars));
         int length = chars.length;
-        logger.info("length");
-        logger.info(String.valueOf(length));
 
         long decodedID =0;
 
         int counter = 1;
         for (int i = 0; i<length; i++){
             decodedID += allowString.indexOf(chars[i]) * Math.pow(lengthOfAllowed, length - counter);
-            logger.info("decodedID");
-            logger.info(String.valueOf(decodedID));
             counter++;
         }
         return decodedID;

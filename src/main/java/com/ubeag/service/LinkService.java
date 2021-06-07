@@ -25,6 +25,8 @@ public class LinkService {
         var link = new Link();
         logger.info("create new link");
         link.setLongLink(request);
+        logger.info("request");
+        logger.info(request);
         logger.info("setlonglink");
         var entity = linkRepository.saveAndFlush(link);
         String test= conversionService.shorten(link.getId());
@@ -33,11 +35,13 @@ public class LinkService {
         return test;
     }
 
-    public String getLongLink(String shortLink){
+    public String getOriginalLink(String shortLink){
         var id = conversionService.unShorten(shortLink);
         var link = linkRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Not Long Link matches" + shortLink));
+                .orElseThrow(() -> new EntityNotFoundException("No Long Link matches" + shortLink));
 
+        logger.info("linl.getlonglink");
+        logger.info(link.getLongLink());
         return link.getLongLink();
     }
 }
